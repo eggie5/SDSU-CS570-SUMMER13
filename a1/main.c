@@ -15,12 +15,11 @@ void thread_runner(void * ptr)
     int i=0;
     for(i=0; i<10; i++)
     {
-        printf("thread id=%d - %d\n", x, i);
-
-
+        // printf("thread id=%d - iteration %d\n", x, i);
         //obtain sem. lock
-        sem_wait(&sem_name);
-
+        sem_wait(&sem_name); //decrement semaphore
+		printf("enter critical region - thread id=%d - iteration %d\n", x, i);
+        // printf("locked\t  thread id=%d - iteration %d\n", x, i);
         //write thread_id to PROCTAB.txt
 
         char thread_id[15];
@@ -35,7 +34,8 @@ void thread_runner(void * ptr)
         }
 
         //release lock
-        sem_post(&sem_name);
+        sem_post(&sem_name); //increment semaphore
+		printf("exit critical region - thread id=%d - iteration %d\n", x, i);
 
 		//every 1 second
         sleep(1);
@@ -49,13 +49,11 @@ void thread_runner(void * ptr)
 int main (int argc, char const *argv[])
 {
     int pid = getpid();
-
     char str[15];
     sprintf(str, "%d", pid);
-
     printf("My process ID : %d\n", pid);
 
-    /* code */
+    //create file
     fp= fopen("PROCTAB.txt", "w+");
 
     if (fp!=NULL)
@@ -64,8 +62,7 @@ int main (int argc, char const *argv[])
         fclose (fp);
     }
 
-
-
+	//init semaphore
     sem_init(&sem_name, 0, 1);
 
     int i[10];
@@ -80,8 +77,6 @@ int main (int argc, char const *argv[])
     i[8]=8;
     i[9]=9;
 
-    // int num_threads=3;
-
     pthread_t thread_1;
     pthread_t thread_2;
     pthread_t thread_3;
@@ -92,7 +87,6 @@ int main (int argc, char const *argv[])
     pthread_t thread_8;
     pthread_t thread_9;
     pthread_t thread_10;
-
 
     pthread_create (&thread_1, NULL, (void *) &thread_runner, (void *) &i[0]);
     pthread_create (&thread_2, NULL, (void *) &thread_runner, (void *) &i[1]);
@@ -118,10 +112,7 @@ int main (int argc, char const *argv[])
 
     sem_destroy(&sem_name); /* destroy semaphore */
 
-
     printf("calling thread\n\n");
-
-
     return 0;
 }
 
