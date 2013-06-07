@@ -1,1 +1,36 @@
-here's my probram...
+Alex Egg & Hwi Lee
+masc0960 & masc0959
+CS 570 Summer '13
+Assignment #1 Semaphore & Threads/Processes
+README
+
+File manifest (name of all files included in this project)
+Compile instructions
+Operating instructions (include any/all command line options/arguments, required inputs, etc)
+List/description of novel/significant design decisions
+List/description of any extra features/algorithms/functionality you included which were not required
+List/description of all known deficiencies or bugs
+Lessons Learned
+
+This is a simple program that demonstrates processes, threads and semaphores. 
+The program will create a semaphore for a file called PROCTAB.txt and create
+10 threads to write to it every second. The semaphore helps to mitigate problems
+that arise with parallelism such as race conditions.
+
+To build and run, type 'make run'. 
+
+
+a1.h -- header
+a1.c -- main source
+makefile -- makefile
+PROCTAB.txt -- output file
+
+To build and run: 
+make run
+
+The output is printed to stderr and also PROCTAB.txt
+
+Lessons Learned:
+Learned a lot about semaphores and the intricacies of threading. 
+
+

@@ -1,4 +1,4 @@
 all:
-	gcc -o a1 a1.c
+	gcc -o sem a1.c
 run: all
-	./a1
+	./sem

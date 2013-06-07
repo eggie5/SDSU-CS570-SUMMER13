@@ -1,0 +1,1 @@
+void thread_runner(void * ptr);
