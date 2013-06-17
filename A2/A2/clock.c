@@ -4,15 +4,20 @@
 #include "clock.h"
 #include "utils.h"
 
+#define TRUE 1
+#define FALSE 0
+
+void fifo(int * pg, int page_file_len);
+void print_frame(int * frames, int len);
 void fifo(int * pg, int page_file_len);
 
 unsigned clock_simulate()
 {
     printf("running clock simulation\n");
     
-    int page_file [30] = {2,3,2,1,5,2,4,5,3,2,5,2};
+    int page_file [12] = {2,3,2,1,5,2,4,5,3,2,5,2};
    
-    for(int i=0; i<30; i++)
+    for(int i=0; i<12; i++)
     {
         printf("%d ", page_file[i]);
     }
@@ -24,66 +29,109 @@ unsigned clock_simulate()
     return 0;
 }
 
+//find if there any exist number between reference and frame
+int find(int frame_size,int page_frames[],int page_num)
+{
+    int i, found = 0;
+    
+    //search frame
+    for (i=1; i<=frame_size; i++)
+    {
+		//if found set 1
+        printf("%d==%d\n", page_frames[i], page_num);
+		if(page_frames[i]==page_num)
+        {
+            found=1;
+            printf("  found %d in frame", page_num);
+        }
+
+    }
+
+    return found;
+}
+
+void extracted_function(int *hit_p, int* frames, int page, const int frame_len)
+{
+    for(int i=0; i<frame_len; i++)
+    {
+        if(page == frames[i])
+        {
+            *hit_p=1;
+            break;
+        }
+    }
+}
+
 void fifo(int * pg, int page_file_len)
 {
-    int fr[10];
+	int ptr=0;
+	int hit;
+    const int frame_len=3;
+    int frames[frame_len]={-1};
+    for(int i=0;i<3;i++)
+    {
+        frames[i]=-1;
+    }
+    int r[frame_len]={0};
     
     
-    
-	int i; //loop index
-	int f=0;
-	int r=0;
-	int s=0;
-	int flag=0;
-	int count=0;
-//	printf("\nEnter size of page frame:");
-//	scanf("%d",&psize);
-    int frame_len=3;
-    //init to -1
-	for(i=0;i<frame_len;i++)
+    //iterate all the pages
+    int s=0;
+    while(s < page_file_len)
 	{
-		fr[i]=-1;
-	}
-    
-    
-	while(s<page_file_len)
-	{
-		flag=0;
-		int num=pg[s];
-		for(i=0;i<frame_len;i++)
-		{
-			if(num==fr[i]) //check for existing match & break
-			{
-				s++;
-				flag=1;
-				break;
-			}
-		}
-		if(flag==0) //if does not exist
-        {
-            r=r % frame_len; //reset frame counter at 3 -- like clock
-            fr[r]=num;
-            
+        ptr=ptr % frame_len; //reset frame counter at 3 -- like clock
 
-            printf("%d, %d", fr[r], pg[s+1]);
-            if(fr[r]==pg[s+1])
-                printf("hit");
-            else
-                r++;
-            s++;
-            count++;
-			
-		}
+		int page=pg[s];
         
-        //print current frame
-		printf("\n");
-		for(i=0;i<frame_len;i++)
-		{
-			printf("%d\t",fr[i]);
-		}
+        hit=0;
+        extracted_function(&hit, frames, page, frame_len);
+			
+        if(hit==TRUE)
+        {
+            if(frames[ptr]!=-1)
+                r[ptr]=1;//When the page is referenced, the use bit is set to 1
+            s++;
+           // ptr++;
+        }
+        else if(hit==FALSE)
+        {
+            if(r[ptr]==0)
+            {
+                
+                frames[ptr]=page;
+                if(frames[ptr]!=-1)
+                    r[ptr]=1;
+                s++;
+                ptr++;
+            }
+            else if(r[ptr]==1)
+            {
+                r[ptr]=0; //reset bit
+                ptr++;
+            }
+            
+        }
+        else
+        {
+            
+        }
+        
+        print_frame(frames, frame_len);
 	}
     
     //print fault counts
-    printf("\nPage Faults=%d",count);
-    getchar();
+    //printf("\n\nPage Faults=%d",fault_count);
+    
+}
+
+
+
+void print_frame(int * frames, int len)
+{
+    //print current frame
+    printf("\n");
+    for(int i=0;i<len;i++)
+    {
+        printf("%d\t",frames[i]);
+    }
 }
