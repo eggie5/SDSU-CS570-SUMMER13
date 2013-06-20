@@ -21,7 +21,7 @@ void ui_loop()
     scanf("%d",&page_table_len);
     
     unsigned _pages[100];
-    int len = read_page_file(&_pages);
+    int len =read_page_file(&_pages);
 
 
     

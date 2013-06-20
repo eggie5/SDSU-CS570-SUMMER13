@@ -111,23 +111,4 @@ void lru(unsigned reference[], unsigned length, const int frame_size)
 		printf("\n\n************ Total Page Faults: %d ************", page_fault);
 }
 
-//int main()
-//{
-//	int frame_size;
-//	int length;
-//	int reference[17] = {0,1,3,6,2,4,5,2,5,0,3,1,2,5,4,1,0};
-//	//int reference[12] = {2,3,2,1,5,2,4,5,3,2,5,2};
-//
-//    //get frame size
-//	printf("\n Enter Frame Size : ");
-//	scanf("%d",&frame_size);
-//
-//	length=17;
-// 
-//    //lru function
-//	lru(reference, length, frame_size);
-//
-//	return 0;
-//		
-//}
 

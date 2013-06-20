@@ -44,7 +44,7 @@ unsigned read_page_file(unsigned (*pages_ptr)[])
     }
     
     
-    return pages_len;
+    return i;
 }
 
 
