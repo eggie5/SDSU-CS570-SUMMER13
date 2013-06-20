@@ -36,5 +36,6 @@ void ui_loop()
     lru_simulate(_pages, len, page_table_len);
 
     opt_simulate(_pages, len, page_table_len);
+
 }
 
