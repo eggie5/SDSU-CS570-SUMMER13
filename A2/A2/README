@@ -1,0 +1,73 @@
+Alex Egg & Hwi Lee
+masc0960 & masc0959
+CS 570 Summer '13
+Assignment #2: Paging Policies 
+README
+
+Build Instructions:
+Change to the A2 directory and run 'make'. To run type 'make run'
+The program will ask for the frame length. It reads the page string from 'pages.txt'.
+
+File Manifest:
+Makefile
+clock.c
+clock.h
+lru.c
+lru.h
+main.c
+main.h
+opt.c
+opt.h
+pages.txt
+ui.c
+ui.h
+utils.c
+utils.h
+
+Summary:
+Different algorithms exists to mitigate the issues inherent with paging schemes. Each have advantages and disadvantages -- three of which: Clock  LRU and OPT -- we examine here.
+
+At small window sizes large advantages are apparent and choice of algorithm is important. In this case OPT is the clear winner with the consistent smallest amount of faults. (Note: we are counting filling empty-frames as a fault). However  as frame size gets larger the advantages of each algorithm minimize. Therefore  it is a trade-off between smaller page files and a more complicated OPT algorithm or a larger pages file and less efficient OPT or clock algorithms.
+
+Here are some actual results:
+
+Pages String 1: 2 3 2 1 5 2 4 5 3 2 5 2
+
+Test Case #1: 
+Frame length: 	3
+Clock Faults:	8 
+LRU Faults: 	7
+OPT Faults		6
+
+Test Case #2: 
+Frame length: 	5
+Clock Faults: 	5
+LRU Faults:		5
+OPT Faults		5
+
+Test Case #3: 
+Frame length: 	10
+Clock Faults: 	5
+LRU Faults:		5
+OPT Faults		5
+
+
+Pages String 2: 0 1 3 6 2 4 5 2 5 0 3 1 2 5 4 1 0
+
+Test Case #1: 
+Frame length:	3
+Clock Faults:	15
+LRU Faults: 	15
+OPT Faults		11
+                
+Test Case #2:
+Frame length:	5 	
+Clock Faults: 	13
+LRU Faults:		11
+OPT Faults		8
+                
+Test Case #3:	
+Frame length: 	10
+Clock Faults: 	7
+LRU Faults:		7
+OPT Faults		7
