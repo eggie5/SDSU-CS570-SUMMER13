@@ -30,8 +30,8 @@ void ui_loop()
     }
     
     clock_simulate(_pages, len, page_table_len);
-//    opt_simulate(_pages);
-//    lru_simulate(_pages);
+//    opt_simulate(_pages, len, page_table_len);
+//    lru_simulate(_pages, len, page_table_len);
     
     
 }
