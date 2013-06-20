@@ -10,6 +10,9 @@
 #define A2_clock_h
 
 
-unsigned clock_simulate();
+void print_frame(int * frames, int * r, int len);
+void clock(unsigned * pg, unsigned pages_len, int page_file_len);
+unsigned clock_simulate(unsigned pages[], unsigned pages_len, unsigned table_len);
+int find(int *hit_p, int* frames, int page, const int frame_len);
 
 #endif

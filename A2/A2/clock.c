@@ -7,91 +7,63 @@
 #define TRUE 1
 #define FALSE 0
 
-void fifo(int * pg, int page_file_len);
-void print_frame(int * frames, int len);
-void fifo(int * pg, int page_file_len);
 
-unsigned clock_simulate()
+
+
+unsigned clock_simulate(unsigned pages[], unsigned pages_len, unsigned table_len)
 {
     printf("running clock simulation\n");
     
-    int page_file [12] = {2,3,2,1,5,2,4,5,3,2,5,2};
    
-    for(int i=0; i<12; i++)
+    for(int i=0; i<pages_len; i++)
     {
-        printf("%d ", page_file[i]);
+        printf("%d ", pages[i]);
     }
     
     printf("\n");
     
-    fifo(page_file, 12);
+    clock(pages, pages_len, table_len);
     
     return 0;
 }
 
-//find if there any exist number between reference and frame
-int find(int frame_size,int page_frames[],int page_num)
-{
-    int i, found = 0;
-    
-    //search frame
-    for (i=1; i<=frame_size; i++)
-    {
-		//if found set 1
-        printf("%d==%d\n", page_frames[i], page_num);
-		if(page_frames[i]==page_num)
-        {
-            found=1;
-            printf("  found %d in frame", page_num);
-        }
 
-    }
 
-    return found;
-}
-
-void extracted_function(int *hit_p, int* frames, int page, const int frame_len)
-{
-    for(int i=0; i<frame_len; i++)
-    {
-        if(page == frames[i])
-        {
-            *hit_p=1;
-            break;
-        }
-    }
-}
-
-void fifo(int * pg, int page_file_len)
+void clock(unsigned * pg, unsigned pages_len, const int frame_len)
 {
 	int ptr=0;
 	int hit;
-    const int frame_len=3;
-    int frames[frame_len]={-1};
-    for(int i=0;i<3;i++)
+    int fault_count=-3;//offset b/c empty buffer isn't a fault
+    
+    int * frames=malloc(sizeof(int) * frame_len);
+    for(int i=0;i<frame_len;i++)
     {
         frames[i]=-1;
     }
-    int r[frame_len]={0};
+    
+    int * r=malloc(sizeof(int)*frame_len);
+    for(int i=0;i<frame_len;i++)
+    {
+        r[i]=0;
+    }
     
     
     //iterate all the pages
     int s=0;
-    while(s < page_file_len)
+    while(s < pages_len)
 	{
         ptr=ptr % frame_len; //reset frame counter at 3 -- like clock
 
 		int page=pg[s];
         
         hit=0;
-        extracted_function(&hit, frames, page, frame_len);
+        int index=find(&hit, frames, page, frame_len);
 			
         if(hit==TRUE)
         {
             if(frames[ptr]!=-1)
-                r[ptr]=1;//When the page is referenced, the use bit is set to 1
+                r[index]=1;//When the page is referenced, the use bit is set to 1
             s++;
-           // ptr++;
         }
         else if(hit==FALSE)
         {
@@ -103,6 +75,7 @@ void fifo(int * pg, int page_file_len)
                     r[ptr]=1;
                 s++;
                 ptr++;
+                fault_count++;
             }
             else if(r[ptr]==1)
             {
@@ -111,27 +84,40 @@ void fifo(int * pg, int page_file_len)
             }
             
         }
-        else
-        {
-            
-        }
         
-        print_frame(frames, frame_len);
+        print_frame(frames, r, frame_len);
 	}
     
     //print fault counts
-    //printf("\n\nPage Faults=%d",fault_count);
+    printf("\n\nPage Faults=%d", fault_count);
     
 }
 
+int find(int *hit_p, int* frames, int page, const int frame_len)
+{
+    for(int i=0; i<frame_len; i++)
+    {
+        if(page == frames[i])
+        {
+            *hit_p=1;
+            return i; //return index in buffer
+        }
+    }
+    return -1;
+}
 
 
-void print_frame(int * frames, int len)
+void print_frame(int * frames, int * r, int len)
 {
     //print current frame
     printf("\n");
     for(int i=0;i<len;i++)
     {
         printf("%d\t",frames[i]);
+    }
+    printf(" - ");
+    for(int i=0;i<len;i++)
+    {
+        printf("%d ",r[i]);
     }
 }
