@@ -129,7 +129,7 @@ void opt(unsigned reference[], unsigned length, const int frame_size)
 		display(page_frames, frame_size);
 	}
 
-		printf("\n\n************ Total Page Faults: %d ************", page_fault);
+		printf("\n\n************ Total Page Faults: %d ************\n\n", page_fault);
 }
 
 //int main()

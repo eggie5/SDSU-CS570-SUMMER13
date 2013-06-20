@@ -1,6 +1,7 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "clock.h"
 #include "utils.h"
 
@@ -33,7 +34,7 @@ void clock(unsigned * pg, unsigned pages_len, const int frame_len)
 {
 	int ptr=0;
 	int hit;
-    int fault_count=-3;//offset b/c empty buffer isn't a fault
+    int fault_count=0;//offset b/c empty buffer isn't a fault
     
     int * frames=malloc(sizeof(int) * frame_len);
     for(int i=0;i<frame_len;i++)

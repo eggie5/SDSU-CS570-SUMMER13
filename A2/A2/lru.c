@@ -5,7 +5,7 @@
 
 unsigned lru_simulate(unsigned pages[], unsigned pages_len, unsigned table_len)
 {
-    printf("running LRU simulation\n");
+    printf("\n\nrunning LRU simulation\n");
     
     
     for(int i=0; i<pages_len; i++)
