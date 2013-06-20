@@ -107,17 +107,4 @@ int find(int *hit_p, int* frames, int page, const int frame_len)
 }
 
 
-void print_frame(int * frames, int * r, int len)
-{
-    //print current frame
-    printf("\n");
-    for(int i=0;i<len;i++)
-    {
-        printf("%d\t",frames[i]);
-    }
-    printf(" - ");
-    for(int i=0;i<len;i++)
-    {
-        printf("%d ",r[i]);
-    }
-}
+

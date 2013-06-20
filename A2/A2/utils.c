@@ -45,3 +45,51 @@ unsigned read_page_file(unsigned (*pages_ptr)[])
     
     return pages_len;
 }
+
+
+//find if there any exist number between reference and frame
+int exists(int frame_size,int page_frames[],int page_num)
+{
+    int i, found = 0;
+    
+    //search frame
+    for (i=0;i<frame_size;i++)
+    {
+		//if found set 1
+		if(page_frames[i]==page_num)
+            found=1;
+    }
+    
+    //return
+    return found;
+}
+
+void print_frame(int * frames, int * r, int len)
+{
+    //print current frame
+    printf("\n");
+    for(int i=0;i<len;i++)
+    {
+        printf("%d\t",frames[i]);
+    }
+    printf("\t");
+    for(int i=0;i<len;i++)
+    {
+        printf("%d ",r[i]);
+    }
+}
+
+
+//display function
+void display(int page_frames[],int frame_size)
+{
+	int index;
+    
+	//print out the result of the clock argorithm
+	printf("\n    Frames : \t");
+	for(index=0; index<frame_size; index++)
+    {
+		printf("%d\t",page_frames[index]);
+    }
+}
+

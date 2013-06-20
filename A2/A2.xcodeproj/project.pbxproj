@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC619B761773A89D00EF9C2F /* lru.c in Sources */ = {isa = PBXBuildFile; fileRef = AC619B721773A89D00EF9C2F /* lru.c */; };
+		AC619B771773A89D00EF9C2F /* opt.c in Sources */ = {isa = PBXBuildFile; fileRef = AC619B741773A89D00EF9C2F /* opt.c */; };
 		AC85B727176A8593006821B3 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = AC85B726176A8593006821B3 /* main.c */; };
 		AC85B729176A8593006821B3 /* A2.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AC85B728176A8593006821B3 /* A2.1 */; };
 		AC85B731176A86EF006821B3 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = AC85B730176A86EF006821B3 /* ui.c */; };
@@ -28,6 +30,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC619B721773A89D00EF9C2F /* lru.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lru.c; sourceTree = "<group>"; };
+		AC619B731773A89D00EF9C2F /* lru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lru.h; sourceTree = "<group>"; };
+		AC619B741773A89D00EF9C2F /* opt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opt.c; sourceTree = "<group>"; };
+		AC619B751773A89D00EF9C2F /* opt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opt.h; sourceTree = "<group>"; };
 		AC85B723176A8593006821B3 /* A2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = A2; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC85B726176A8593006821B3 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		AC85B728176A8593006821B3 /* A2.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = A2.1; sourceTree = "<group>"; };
@@ -71,6 +77,10 @@
 		AC85B725176A8593006821B3 /* A2 */ = {
 			isa = PBXGroup;
 			children = (
+				AC619B721773A89D00EF9C2F /* lru.c */,
+				AC619B731773A89D00EF9C2F /* lru.h */,
+				AC619B741773A89D00EF9C2F /* opt.c */,
+				AC619B751773A89D00EF9C2F /* opt.h */,
 				AC85B726176A8593006821B3 /* main.c */,
 				AC85B728176A8593006821B3 /* A2.1 */,
 				AC85B72F176A85DF006821B3 /* pages.txt */,
@@ -140,6 +150,8 @@
 				AC85B731176A86EF006821B3 /* ui.c in Sources */,
 				AC85B734176A880C006821B3 /* clock.c in Sources */,
 				AC85B738176A8A2A006821B3 /* utils.c in Sources */,
+				AC619B761773A89D00EF9C2F /* lru.c in Sources */,
+				AC619B771773A89D00EF9C2F /* opt.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +250,7 @@
 				AC85B72E176A8593006821B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

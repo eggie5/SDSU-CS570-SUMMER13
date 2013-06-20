@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include "clock.h"
 #include "utils.h"
+#include "opt.h"
+#include "lru.h"
 #define PAGE_T_LEN 3
 
 void ui_loop()
@@ -30,9 +32,9 @@ void ui_loop()
     }
     
     clock_simulate(_pages, len, page_table_len);
-//    opt_simulate(_pages);
-//    lru_simulate(_pages);
-    
-    
+
+    lru_simulate(_pages, len, page_table_len);
+
+    opt_simulate(_pages, len, page_table_len);
 }
 
