@@ -1,0 +1,30 @@
+Alex Egg & Hwi Lee
+masc0960 & masc0959
+CS 570 Summer '13
+Assignment #3: IPC
+README
+
+Build Instructions:
+Change to the a3 directory and run 'make'. To run type 'make run'
+The program accepts a command-line argument which is an integer for the # 
+of seconds to count-down. If the arg is omiitted a default of 6 is used.
+
+File Manifest:
+Makefile
+main.c
+README
+
+Summary:
+
+This program uses 2 sibling procsses: one operates a countdown timer and the other prints the local-time every second. When the count-down process
+elapses, it communicates to the sibling process which indicates it should return. Both processes return and the parent process returns. The point
+of this lab, seems to be inter-process communication. IPC can be done w/ various methods: signals, pipes, files, etc. We used the pipe method. In 
+the parent process we initialize the pipe object and then refernce it in the child threads to faciliate communication between the two. In the 
+count-down timer process: at time elapse, we write to the pipe and exit message. In the clock process every second we read the pipe for the specific
+exit message written by the count-down process and exit.
+
+
+Lessons Learned:
+
+The pipe method might have been a little over-kill for this simple example application. We needed to send a simple binary flag that indicates
+run or exit and did not need the ability to pass whole messages or data structures. I would have used signals if I did this project again. 
